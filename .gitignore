@@ -1,0 +1,36 @@
+# Create proper .gitignore for Poetry projects
+@"
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments (Poetry creates these in a cache directory)
+.venv
+venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Database
+*.db
+*.sqlite3
+
+# Logs
+*.log
+
+# Environment variables
+.env
+.env.local
+
+# Poetry - we commit poetry.lock but not the actual virtual env files
+# Virtual envs are created in system cache, not in project
+"@ | Out-File -FilePath .gitignore -Encoding utf8
