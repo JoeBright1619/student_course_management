@@ -12,7 +12,7 @@ from ..models.course import Course
 
 class CourseService:
     def __init__(self):
-        self.courses = {}  # key: course_id, value: Course object
+        self.courses = {}  # key: course_code, value: Course object
 
     def add_course(self, *args, **kwargs):
         course = Course(*args, **kwargs)

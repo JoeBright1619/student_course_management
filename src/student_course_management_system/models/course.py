@@ -12,8 +12,8 @@ Supports polymorphic reporting
 # models/course.py
 
 class Course:
-    def __init__(self, course_id, title, max_students=30):
-        self.course_id = course_id
+    def __init__(self, course_code, title, max_students=30):
+        self.course_code = course_code
         self.title = title
         self.max_students = max_students
         self._students = []  # list of Student objects
@@ -33,4 +33,4 @@ class Course:
         return 0
 
     def __repr__(self):
-        return f"Course({self.course_id}, {self.title})"
+        return f"Course({self.course_code}, {self.title})"
