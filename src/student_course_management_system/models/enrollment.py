@@ -17,3 +17,8 @@ class Enrollment:
 
     def __repr__(self):
         return f"Enrollment(Student={self.student.name}, Course={self.course.title})"
+
+    def __eq__(self, other):
+        if isinstance(other, Enrollment):
+            return self.student == other.student and self.course == other.course
+        return False

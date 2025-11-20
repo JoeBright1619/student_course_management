@@ -17,13 +17,12 @@ class EnrollmentService:
     def __init__(self):
         self.enrollments = []  # list of Enrollment objects
 
-    def enroll(self, student, course):
-        # Prevent duplicate enrollment
-        for e in self.enrollments:
-            if e.student == student and e.course == course:
-                raise ValueError("Student already enrolled in this course")
-
+    def enroll_student(self, student, course):
         enrollment = Enrollment(student, course)
+
+        if enrollment in self.enrollments:  # prevent duplicate enrollment
+            raise ValueError("Student already enrolled in this course")
+
         self.enrollments.append(enrollment)
         return enrollment
 

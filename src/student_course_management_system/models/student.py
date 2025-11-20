@@ -48,3 +48,8 @@ class Student:
     # ---- Magic Methods ----
     def __repr__(self):
         return f"Student({self._student_id}, {self._name})"
+
+    def __eq__(self, other):
+        if isinstance(other, Student):
+            return self.student_id == other.student_id
+        return False

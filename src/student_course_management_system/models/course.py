@@ -34,3 +34,8 @@ class Course:
 
     def __repr__(self):
         return f"Course({self.course_code}, {self.title})"
+
+    def __eq__(self, other):
+        if isinstance(other, Course):
+            return self.course_code == other.course_code
+        return False
