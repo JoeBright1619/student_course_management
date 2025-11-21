@@ -16,7 +16,7 @@ from src.student_course_management_system.services.course_service import CourseS
 from src.student_course_management_system.services.enrollment_service import EnrollmentService
 from src.student_course_management_system.services.report_service import SummaryReport
 from src.student_course_management_system.utils.menu import main_menu, pause, student_type_menu
-from src.student_course_management_system.utils.input_handlers import is_valid_email, is_non_empty_string, is_valid_int
+from src.student_course_management_system.utils.input_handlers import is_valid_email, is_non_empty_string, is_valid_int, is_valid_score
 
 
 # Initialize services
@@ -106,33 +106,53 @@ while True:
             pause()
             continue
 
-        enrollment_service.enroll(student, course)
+        enrollment_service.enroll_student(student, course)
         print(f"{student.name} enrolled in {course.title} successfully!")
         pause()
+        
+    elif choice == "4":
+        student_id = input("Enter student ID to enroll: ")
+        course_code = input("Enter course code: ")
+        course_score = input("Enter course score out of 100: ")
 
-    elif choice == "4":  # View Students
+        if not is_valid_int(student_id):
+            print("Invalid student ID.")
+            pause()
+            continue
+        if  not is_valid_score(course_score):
+            print("Invalid score! Should be between 0-100")
+            pause()
+            continue
+        
+        student = student_service.get_student(int(student_id))
+        course = course_service.get_course(course_code)
+        enrollment_service.assign_grade(student, course, course_score)
+        print(f"score recorded for student {student.name}")
+        pause()
+    elif choice == "5":  # View Students
         students = student_service.list_students()
         print("\nStudents List:")
         for s in students:
             print(f"{s.student_id} | {s.name} | {s.email}")
         pause()
 
-    elif choice == "5":  # View Courses
+    elif choice == "6":  # View Courses
         courses = course_service.list_courses()
         print("\nCourses List:")
         for c in courses:
             print(f"{c.course_code} | {c.title}")
         pause()
 
-    elif choice == "6":  # Generate Summary Report
+    elif choice == "7":  # Generate Summary Report
         report = report_service.generate_report(enrollment_service.enrollments)
         print("\nSummary Report:")
         print(f"Total Enrollments: {report['total_enrollments']}")
         print(f"Unique Courses: {report['unique_courses']}")
         print(f"Unique Students: {report['unique_students']}")
+        print(f'Overall Average per course: {report['course_averages']}')
         pause()
 
-    elif choice == "7":  # Exit
+    elif choice == "8":  # Exit
         print("Exiting... Goodbye!")
         break
 

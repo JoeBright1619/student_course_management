@@ -27,6 +27,13 @@ def is_valid_int(value):
     except ValueError:
         return False
 
+def is_valid_score(value):
+    try:
+        value = float(value)
+        return value >= 0 and value <= 100
+    except ValueError:
+        return False
+
 def is_non_empty_string(value):
     """Check if a string is not empty."""
     return isinstance(value, str) and value.strip() != ""

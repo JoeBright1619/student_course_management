@@ -21,7 +21,7 @@ from ..models.graduate import Graduate
 
 class StudentService:
     def __init__(self):
-        self.students = []  # key: student_id, value: Student object
+        self.students = []  # Array of Objects
 
     def add_student(self, student_type, *args, **kwargs):
         student = student_type(*args, **kwargs)
