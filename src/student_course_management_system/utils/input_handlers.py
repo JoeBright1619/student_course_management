@@ -28,6 +28,7 @@ def is_valid_int(value):
         return False
 
 def is_valid_score(value):
+    """Ensure a numeric input falls within the 0-100 range."""
     try:
         value = float(value)
         return value >= 0 and value <= 100

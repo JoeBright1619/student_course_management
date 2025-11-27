@@ -1,7 +1,10 @@
 from ..models.report_base import ReportBase
 
 class SummaryReport(ReportBase):
+    """Concrete report that aggregates enrollment statistics."""
+
     def generate_report(self, enrollments):
+        """Summarize counts and per-course averages from enrollment data."""
 
         total = len(enrollments)
         course_info = {(e.course.course_code, e.course.title) for e in enrollments}
