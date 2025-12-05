@@ -11,20 +11,18 @@ No heavy logic here — just orchestrates everything."""
 # main.py
 from src.student_course_management_system.models.undergraduate import Undergraduate
 from src.student_course_management_system.models.graduate import Graduate
-from src.student_course_management_system.services.student_service import StudentService
-from src.student_course_management_system.services.course_service import CourseService
-from src.student_course_management_system.services.enrollment_service import EnrollmentService
-from src.student_course_management_system.services.report_service import SummaryReport
+
 from src.student_course_management_system.utils.menu import main_menu, pause, student_type_menu
 from src.student_course_management_system.utils.input_handlers import is_valid_email, is_non_empty_string, is_valid_int, is_valid_score
 
+from src.student_course_management_system.models.app_initiliazer import AppInitializer
 
-# Initialize services
-student_service = StudentService()
-course_service = CourseService()
-enrollment_service = EnrollmentService()
-report_service = SummaryReport()
+services = AppInitializer.bootstrap()
 
+student_service = services["students"]
+course_service = services["courses"]
+enrollment_service = services["enrollments"]
+report_service = services["reports"]
 
 # Main loop
 while True:
@@ -101,11 +99,14 @@ while True:
         student = student_service.get_student(int(student_id))
         course = course_service.get_course(course_code)
 
-        if not student or not course:
-            print("Student or course not found.")
+        if not student:
+            print("Student not found.")
             pause()
             continue
-
+        if not course:
+            print("Course not found.")
+            pause()
+            continue
         enrollment_service.enroll_student(student, course)
         print(f"{student.name} enrolled in {course.title} successfully!")
         pause()
@@ -149,7 +150,10 @@ while True:
         print(f"Total Enrollments: {report['total_enrollments']}")
         print(f"Unique Courses: {report['unique_courses']}")
         print(f"Unique Students: {report['unique_students']}")
-        print(f'Overall Average per course: {report['course_averages']}')
+        print("Overall Average per course:")
+        print("Course Name                    | Score")
+        print(report["course_averages"])
+
         pause()
 
     elif choice == "8":  # Exit

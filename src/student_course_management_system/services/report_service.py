@@ -22,14 +22,15 @@ class SummaryReport(ReportBase):
             if scores:
                 course_averages[name] = sum(scores) / len(scores)
 
-        formatted_avg = "".join(
-            f"\n{course_name} | {avg:.2f}" for course_name, avg in course_averages.items()
+        formatted_avg = "\n".join(
+            f"{course_name:<30} | {avg:>6.2f}"
+            for course_name, avg in course_averages.items()
         )
-
 
         return {
             "total_enrollments": total,
             "unique_courses": len(course_info),
             "unique_students": len(students),
-            "course_averages": "\nCourse_name  |  score"+formatted_avg,
+            "course_averages": formatted_avg,   # <-- no header here
         }
+
