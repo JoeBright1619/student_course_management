@@ -34,7 +34,13 @@ def is_valid_score(value):
         return value >= 0 and value <= 100
     except ValueError:
         return False
-
+def is_valid_year(value):
+    try:
+        if int(value) > 1 and int(value) < 4:
+            return True
+        return False
+    except ValueError:
+        return False
 def is_non_empty_string(value):
     """Check if a string is not empty."""
     return isinstance(value, str) and value.strip() != ""

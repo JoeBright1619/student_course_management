@@ -13,7 +13,7 @@ from src.student_course_management_system.models.undergraduate import Undergradu
 from src.student_course_management_system.models.graduate import Graduate
 
 from src.student_course_management_system.utils.menu import main_menu, pause, student_type_menu
-from src.student_course_management_system.utils.input_handlers import is_valid_email, is_non_empty_string, is_valid_int, is_valid_score
+from src.student_course_management_system.utils.input_handlers import is_valid_email, is_non_empty_string, is_valid_int, is_valid_score, is_valid_year
 
 from src.student_course_management_system.models.app_initiliazer import AppInitializer
 
@@ -46,7 +46,7 @@ while True:
 
         if stype == "1":
             level = input("Enter undergraduate year (1-4): ")
-            if not is_valid_int(level):
+            if not is_valid_year(level):
                 print("Invalid year.")
                 pause()
                 continue
